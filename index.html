@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Team Logo Dashboard - Alternative Designs</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-football-ball"></i>
+                    NFL Logo Design Dashboard
+                </h1>
+                <p class="subtitle">Explore alternative logo concepts for NFL teams</p>
+            </div>
+        </header>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="teamSelect">Select Team:</label>
+                <select id="teamSelect" class="team-select">
+                    <option value="">Choose a team...</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="conferenceFilter">Conference:</label>
+                <select id="conferenceFilter" class="conference-filter">
+                    <option value="">All Conferences</option>
+                    <option value="AFC">AFC</option>
+                    <option value="NFC">NFC</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="divisionFilter">Division:</label>
+                <select id="divisionFilter" class="division-filter">
+                    <option value="">All Divisions</option>
+                    <option value="North">North</option>
+                    <option value="South">South</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
+                </select>
+            </div>
+
+            <button id="generateBtn" class="generate-btn">
+                <i class="fas fa-magic"></i>
+                Generate New Variations
+            </button>
+        </div>
+
+        <!-- Team Grid -->
+        <div id="teamGrid" class="team-grid">
+            <!-- Teams will be populated here -->
+        </div>
+
+        <!-- Logo Comparison Modal -->
+        <div id="logoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTeamName">Team Logo Variations</h2>
+                    <button class="close-btn" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="logo-comparison">
+                        <div class="logo-section">
+                            <h3>Current Logo</h3>
+                            <div class="logo-container current">
+                                <img id="currentLogo" src="" alt="Current Logo">
+                            </div>
+                            <div class="logo-info">
+                                <p><strong>Official Design</strong></p>
+                                <p id="teamDetails"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="logo-section">
+                            <h3>Alternative Design #1</h3>
+                            <div class="logo-container variation">
+                                <canvas id="logoCanvas1" width="200" height="200"></canvas>
+                            </div>
+                            <div class="logo-info">
+                                <p><strong>Modern Minimalist</strong></p>
+                                <p>Clean, simplified design with focus on core elements</p>
+                                <button class="download-btn" onclick="downloadLogo('logoCanvas1')">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="logo-section">
+                            <h3>Alternative Design #2</h3>
+                            <div class="logo-container variation">
+                                <canvas id="logoCanvas2" width="200" height="200"></canvas>
+                            </div>
+                            <div class="logo-info">
+                                <p><strong>Retro Classic</strong></p>
+                                <p>Vintage-inspired design with traditional elements</p>
+                                <button class="download-btn" onclick="downloadLogo('logoCanvas2')">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Generating logo variations...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
