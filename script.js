@@ -67,20 +67,39 @@ class NFLLogoDashboard {
 
     async loadTeams() {
         try {
-            const response = await fetch('api.php?action=getTeams');
-            if (!response.ok) {
-                // Fallback to local JSON file
-                const fallbackResponse = await fetch('nfl_logos.json');
-                const data = await fallbackResponse.json();
-                this.teams = data.teams;
-            } else {
-                const data = await response.json();
-                this.teams = data.teams || data;
+            // Try Python server first, then PHP, then fallback to JSON
+            let response;
+            let data;
+            
+            try {
+                response = await fetch('/api?action=getTeams');
+                if (response.ok) {
+                    data = await response.json();
+                    this.teams = data.success ? data.data.teams : data.teams || data;
+                } else {
+                    throw new Error('Python API not available');
+                }
+            } catch (pythonError) {
+                try {
+                    response = await fetch('api.php?action=getTeams');
+                    if (response.ok) {
+                        data = await response.json();
+                        this.teams = data.success ? data.data.teams : data.teams || data;
+                    } else {
+                        throw new Error('PHP API not available');
+                    }
+                } catch (phpError) {
+                    // Fallback to local JSON file
+                    const fallbackResponse = await fetch('nfl_logos.json');
+                    data = await fallbackResponse.json();
+                    this.teams = data.teams;
+                }
             }
+            
             this.filteredTeams = [...this.teams];
         } catch (error) {
             console.error('Error loading teams:', error);
-            // Fallback data if everything fails
+            // Final fallback data if everything fails
             this.teams = this.getFallbackTeams();
             this.filteredTeams = [...this.teams];
         }
